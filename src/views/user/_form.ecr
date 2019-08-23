@@ -1,0 +1,30 @@
+<%- if user.errors %>
+  <ul class="errors">
+  <%- user.errors.each do |error| %>
+    <li><%= error.to_s %></li>
+  <%- end %>
+  </ul>
+<%- end %>
+
+<%- action = (user.id ? "/users/" + user.id.to_s : "/users") %>
+<form action="<%= action %>" method="post">
+  <%= csrf_tag %>
+  <%- if user.id %>
+  <input type="hidden" name="_method" value="patch" />
+  <%- end %>
+
+  <div class="form-group">
+    <%= text_field(name: "firstname", value: user.firstname, placeholder: "Firstname", class: "form-control") -%>
+  </div>
+  <div class="form-group">
+    <%= text_field(name: "lastname", value: user.lastname, placeholder: "Lastname", class: "form-control") -%>
+  </div>
+  <div class="form-group">
+    <%= text_field(name: "email", value: user.email, placeholder: "Email", class: "form-control") -%>
+  </div>
+  <div class="form-group">
+    <%= text_field(name: "age", value: user.age, placeholder: "Age", class: "form-control") -%>
+  </div>
+  <%= submit("Submit", class: "btn btn-success btn-sm") -%>
+  <%= link_to("Back", "/users", class: "btn btn-light btn-sm") -%>
+</form>
